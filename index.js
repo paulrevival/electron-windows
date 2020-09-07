@@ -4,7 +4,7 @@
  *
  * https://npmjs.com/package/electron-window-manager
  * https://github.com/TamkeenLMS/electron-window-manager
- * 
+ *
  * ~ zain
  * */
 'use strict';
@@ -170,7 +170,7 @@ Window.prototype.create = function(url) {
 
     // The defaults
     if(!this.setup.resizable) this.setup.resizable = false;
-    if(!this.setup.useContentSize) this.setup.useContentSize = true;
+    if(!this.setup.useContentSize) this.setup.useContentSize = false;
     if(!this.setup.x && !this.setup.y) this.setup.center = true;
 
     // Create the new browser window instance, with the passed setup
@@ -797,7 +797,7 @@ const windowManager = {
      * @param config The configuration for the module
      * */
     'init': function(config){
-        
+
         if(isString(config)){
             this.config.appBase = config;
         }else if(isObject(config)){// If the config object is provided
@@ -919,10 +919,10 @@ const windowManager = {
      * Get a window instance, by BrowserWindow instance id
      */
     'getById': function(id) {
-        let instance;
+        let instance = undefined;
         Object.keys(this.windows).forEach(key => {
             let window = this.windows[key];
-            if(window.object.id === id){
+            if(window.object && window.object.id === id){
                 instance = window;
             }
         });
